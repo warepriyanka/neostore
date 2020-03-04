@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.example.neostoreapplication.ViewModel.SignUpViewModel"
+            />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/colorTheme"
+        android:layout_height="match_parent"
+        tools:context=".Activities.MainActivity">
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="100px"
+            android:layout_marginRight="100px"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="NeoSTORE"
+                android:textSize="135px"
+                android:textStyle="bold"
+                android:textColor="@color/colorWhite"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="148px"
+                android:id="@+id/etUserName"
+                android:text="@={viewmodel.username}"
+                android:padding="10dp"
+                android:drawablePadding="10dp"
+                android:textSize="54px"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
+                android:hint="Username"
+                android:drawableLeft="@drawable/username_icon"/>
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10px"
+                android:id="@+id/etPassword"
+                android:text="@={viewmodel.password}"
+                android:padding="10dp"
+                android:drawablePadding="10dp"
+                android:textSize="54px"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
+                android:hint="Password"
+                android:drawableLeft="@drawable/username_icon"/>
+
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:onClick="@{viewmodel::onLoginButtonClick}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Login"
+                android:layout_marginTop="100px"
+                android:textSize="78px"
+                android:textStyle="bold"
+                android:textColor="@color/colorTheme"
+                android:background="@drawable/rounded_corner">
+
+            </Button>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Forgot Password?"
+                android:textColor="@color/colorWhite"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="65px"
+                android:textSize="54px" />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/linearlayout"
+            android:layout_marginLeft="48px"
+            android:layout_marginRight="48px">
+            <TextView
+                android:id="@+id/tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Don't have an account"
+                android:layout_alignParentBottom="true"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+                android:textSize="48px"/>
+
+
+            <ImageButton
+                android:layout_width="136px"
+                android:layout_height="136px"
+                android:onClick="@{viewmodel::onSignup}"
+                android:backgroundTint="@color/colorTheme"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/plus">
+
+            </ImageButton>
+
+        </RelativeLayout>
+
+        <ProgressBar
+            android:visibility="invisible"
+            android:id="@+id/progress_bar"
+            android:layout_centerInParent="true"
+            android:foregroundGravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+</layout>
+

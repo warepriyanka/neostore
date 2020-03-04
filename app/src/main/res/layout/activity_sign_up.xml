@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.example.neostoreapplication.ViewModel.SignUpViewModel"
+            />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/colorTheme"
+        android:layout_height="match_parent"
+        tools:context=".Activities.SignUpActivity">
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="NeoSTORE"
+                    android:textSize="135px"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorWhite"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10px"
+                    android:id="@+id/etFirstName"
+                    android:text="@={viewmodel.firstName}"
+                    android:padding="10dp"
+                    android:drawablePadding="10dp"
+                    android:textSize="54px"
+                    android:textColor="@color/colorWhite"
+                    android:textColorHint="@color/colorWhite"
+                    android:hint="First Name"
+                    android:drawableLeft="@drawable/username_icon"/>
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10px"
+                    android:id="@+id/etLastName"
+                    android:text="@={viewmodel.lastName}"
+                    android:padding="10dp"
+                    android:drawablePadding="10dp"
+                    android:textSize="54px"
+                    android:textColor="@color/colorWhite"
+                    android:textColorHint="@color/colorWhite"
+                    android:hint="Last Name"
+                    android:drawableLeft="@drawable/username_icon"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10px"
+                    android:id="@+id/etEmail"
+                    android:text="@={viewmodel.email}"
+                    android:drawableLeft="@drawable/email_icon"
+                    android:padding="10dp"
+                    android:drawablePadding="10dp"
+                    android:textSize="54px"
+                    android:textColor="@color/colorWhite"
+                    android:textColorHint="@color/colorWhite"
+                    android:hint="Email"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10px"
+                    android:id="@+id/etPassword"
+                    android:text="@={viewmodel.password}"
+                    android:drawableLeft="@drawable/password_icon"
+                    android:padding="10dp"
+                    android:drawablePadding="10dp"
+                    android:textSize="54px"
+                    android:textColor="@color/colorWhite"
+                    android:textColorHint="@color/colorWhite"
+                    android:hint="Password"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10px"
+                    android:id="@+id/etConfPassword"
+                    android:text="@={viewmodel.confirmPassword}"
+                    android:drawableLeft="@drawable/password_icon"
+                    android:padding="10dp"
+                    android:drawablePadding="10dp"
+                    android:textSize="54px"
+                    android:textColor="@color/colorWhite"
+                    android:textColorHint="@color/colorWhite"
+                    android:hint="Confirm Password"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="69px"
+                    android:layout_marginBottom="69px">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="Gender"
+                        android:textSize="48px"
+                        android:layout_centerInParent="true"
+                        android:textColor="@color/colorWhite"/>
+
+                    <RadioGroup
+                        android:id="@+id/radioGrp"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/radioMale"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="48px"
+                            android:textColor="@color/colorWhite"
+                            android:text="Male"
+                            android:buttonTint="@color/colorWhite"
+                            android:checked="true"
+
+                            />
+                        <RadioButton
+                            android:id="@+id/radioFemale"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="48px"
+                            android:text="Female"
+                            android:buttonTint="@color/colorWhite"
+                            android:checked="false"
+                            />
+                    </RadioGroup>
+
+                </RelativeLayout>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10px"
+                    android:id="@+id/etMobNo"
+                    android:text="@={viewmodel.mobNo}"
+                    android:drawableLeft="@drawable/cellphone"
+                    android:padding="10dp"
+                    android:drawablePadding="10dp"
+                    android:textSize="54px"
+                    android:textColor="@color/colorWhite"
+                    android:textColorHint="@color/colorWhite"
+                    android:hint="Phone Number"/>
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="I agree the Terms and Conditions"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="69px"
+                    android:buttonTint="@color/colorWhite"
+                    android:textColor="@color/colorWhite"></CheckBox>
+
+                <Button
+                    android:id="@+id/btnRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Register"
+                    android:onClick="@{viewmodel::onSignupButtonClick}"
+                    android:textColor="@color/colorTheme"
+                    android:background="@drawable/rounded_corner">
+
+                </Button>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        </ScrollView>
+
+        <ProgressBar
+            android:visibility="invisible"
+            android:id="@+id/progress_bar"
+            android:layout_centerInParent="true"
+            android:foregroundGravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+</layout>
