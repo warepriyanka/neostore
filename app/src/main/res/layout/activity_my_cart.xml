@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.MyCartActivity">
+
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorAccent"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        <ImageView
+            android:id="@+id/backbtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="1dp"
+            android:tint="@color/colorWhite"
+            android:src="@drawable/ic_keyboard_arrow_left_black_24dp"></ImageView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:gravity="center"
+            android:textSize="69px"
+            android:textStyle="bold"
+            android:id="@+id/titletext"
+            android:text="My Cart"/>
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/toolbar"
+        android:id="@+id/myCartRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/myCartRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+
+            android:id="@+id/totalPriceRelativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="200px">
+            <TextView
+
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="45px"
+                android:textColor="#333333"
+                android:text="Total"
+                android:layout_alignParentLeft="true" />
+            <TextView
+                android:id="@+id/totalPriceTextView"
+                android:layout_centerInParent="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="45px"
+                android:text="$300"
+                android:textColor="#333333"/>
+        </RelativeLayout>
+        <Button
+
+            android:layout_below="@+id/totalPriceRelativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="75px"
+            android:background="@drawable/shape_rounded_rectangle"
+            android:backgroundTint="#db1514"
+            android:textColor="@android:color/white"
+            android:text="ORDER NOW"
+            android:textAllCaps="true"/>
+    </RelativeLayout>
+
+</RelativeLayout>

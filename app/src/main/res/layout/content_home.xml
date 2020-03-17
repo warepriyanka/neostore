@@ -1,20 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+
+    android:orientation="vertical"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/app_bar_main">
+    tools:showIn="@layout/app_bar_home">
 
-    <fragment
-        android:id="@+id/nav_host_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:defaultNavHost="true"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/mobile_navigation" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="686px">
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/bannerViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/dotTab_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:tabBackground="@drawable/tab_selector"
+            app:tabGravity="center"
+            android:layout_centerInParent="true"
+            app:tabIndicatorHeight="0dp"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_marginLeft="40px"
+        android:layout_marginRight="40px"
+        android:layout_marginTop="45px"
+        android:layout_marginBottom="45px"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_marginBottom="17.5px"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/tableRelativeLayout"
+                android:layout_marginRight="15px"
+                android:padding="50px"
+                android:layout_weight="1"
+                android:background="@color/colorTheme"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:textSize="69px"
+                    android:text="Tables"
+                    android:gravity="end"
+                    android:layout_width="match_parent"
+                    android:textColor="@android:color/white"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/table"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/sofasRelativeLayout"
+                android:layout_marginLeft="15px"
+                android:layout_weight="1"
+                android:padding="50px"
+                android:background="@color/colorTheme"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_alignParentBottom="true"
+                    android:textSize="69px"
+                    android:text="Sofas"
+                    android:textColor="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/sofa"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"/>
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_marginTop="17.5px"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/chairRelativeLayout"
+                android:layout_marginRight="15px"
+                android:padding="50px"
+                android:layout_weight="1"
+                android:background="@color/colorTheme"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:textSize="69px"
+                    android:text="Chairs"
+                    android:gravity="left"
+                    android:layout_width="match_parent"
+                    android:textColor="@android:color/white"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/chair"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/cupboardsRelativeLayout"
+                android:layout_marginLeft="15px"
+                android:layout_weight="1"
+                android:padding="50px"
+                android:background="@color/colorTheme"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_alignParentBottom="true"
+                    android:textSize="69px"
+                    android:text="Cupboards"
+                    android:textColor="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+
+                    android:src="@drawable/cupboard"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <!--    <fragment-->
+    <!--        android:id="@+id/nav_host_fragment"-->
+    <!--        android:name="androidx.navigation.fragment.NavHostFragment"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        app:defaultNavHost="true"-->
+    <!--        app:navGraph="@navigation/mobile_navigation"-->
+    <!--        /> -->
+</LinearLayout>

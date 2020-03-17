@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="100px"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/productNameDialogTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100px"
+        android:text="Title"
+        android:textColor="#2c2b2b"
+        android:textSize="75px" />
+
+    <ImageView
+        android:id="@+id/productDialogImageView"
+        android:layout_width="772px"
+        android:layout_height="534px" />
+    <TextView
+        android:layout_marginTop="100px"
+        android:text="Enter Qty"
+        android:textSize="60px"
+        android:textColor="#2c2b2b"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/quantityDialogEditText"
+        android:layout_marginTop="66px"
+        android:inputType="number"
+        android:layout_width="336px"
+        android:layout_height="129px"
+        android:background="@drawable/shape_rectangle"
+        />
+    <Button
+        android:layout_marginTop="66px"
+        android:id="@+id/submitBuyNowDialogButton"
+        android:layout_width="535px"
+        android:layout_height="142px"
+        android:background="@drawable/shape_rounded_rectangle"
+        android:backgroundTint="@color/colorTheme"
+        android:textColor="@android:color/white"
+        android:text="SUBMIT"/>
+</LinearLayout>

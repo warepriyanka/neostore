@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorTheme"
+    tools:context=".Activities.MyAccountActivity">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorAccent"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        <ImageView
+            android:id="@+id/backbtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="1dp"
+            android:tint="@color/colorWhite"
+            android:src="@drawable/ic_keyboard_arrow_left_black_24dp"></ImageView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:gravity="center"
+            android:textSize="69px"
+            android:textStyle="bold"
+            android:id="@+id/titletext"
+            android:text="My Account"/>
+    </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:layout_below="@id/toolbar"
+        android:padding="80px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="400px"
+            android:layout_height="400px"
+            android:id="@+id/userImage"
+            android:layout_gravity="center"
+            app:civ_border_color="#ffffff"
+            app:civ_border_width="4dp"
+            android:src="@drawable/ic_launcher_foreground"
+            />
+        <EditText
+            android:id="@+id/firstName"
+            android:layout_marginTop="60px"
+            android:padding="10dp"
+            android:drawablePadding="10dp"
+            android:textSize="@dimen/loginEditextSize"
+            android:drawableLeft="@drawable/username_icon"
+            android:hint="First Name"
+            android:textColorHint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:background="@drawable/shape_rectangle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/lastName"
+            android:layout_marginTop="40px"
+            android:padding="10dp"
+            android:drawablePadding="10dp"
+            android:textSize="@dimen/loginEditextSize"
+            android:drawableLeft="@drawable/username_icon"
+            android:hint="Last Name"
+            android:textColorHint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:background="@drawable/shape_rectangle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/email"
+            android:layout_marginTop="40px"
+            android:padding="10dp"
+            android:drawablePadding="10dp"
+            android:textSize="@dimen/loginEditextSize"
+            android:drawableLeft="@drawable/email_icon"
+            android:hint="Email"
+            android:textColorHint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:background="@drawable/shape_rectangle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/mobileEditText"
+            android:layout_marginTop="40px"
+            android:padding="10dp"
+            android:drawablePadding="10dp"
+            android:textSize="@dimen/loginEditextSize"
+            android:drawableLeft="@drawable/cellphone"
+            android:hint="Mobile"
+            android:inputType="number"
+            android:textColorHint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:background="@drawable/shape_rectangle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/dobText"
+            android:layout_marginTop="40px"
+            android:padding="10dp"
+            android:drawablePadding="10dp"
+            android:textSize="@dimen/loginEditextSize"
+            android:drawableLeft="@drawable/dob_icon"
+            android:hint="Date of birth"
+            android:textColorHint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:background="@drawable/shape_rectangle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btnEditProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40px"
+            android:text="Edit Profile"
+            android:textColor="@color/colorTheme"
+            android:background="@drawable/shape_rounded_rectangle"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/btnResetPassword"
+        android:layout_width="match_parent"
+        android:layout_height="137px"
+        android:text="reset password"
+        android:textColor="#333333"
+        android:background="@drawable/shape_rectangle"
+        android:backgroundTint="@android:color/white"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
