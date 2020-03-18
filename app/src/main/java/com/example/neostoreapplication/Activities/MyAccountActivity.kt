@@ -1,11 +1,14 @@
 package com.example.neostoreapplication.Activities
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
+import android.widget.DatePicker
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.neostoreapplication.Model.Responses.getUserData
@@ -17,15 +20,22 @@ import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.activity_sign_up.email
 import kotlinx.android.synthetic.main.activity_sign_up.firstName
 import kotlinx.android.synthetic.main.activity_sign_up.lastName
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MyAccountActivity : AppCompatActivity() {
 
     lateinit var fetchUserDataViewModel: UserDataViewModel
     lateinit var type:String
+    var dobtext: TextView? = null
+    var cal = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_account)
+
+        dobtext = this.dobText
+        dobtext!!.text = "--/--/----"
 
         val imgback = findViewById<ImageView>(R.id.backbtn)
         imgback.setOnClickListener{
@@ -46,8 +56,18 @@ class MyAccountActivity : AppCompatActivity() {
             getImageGallery()
         }
 
-        btnEditProfile.setOnClickListener {
+        // create an OnDateSetListener
+        val dateSetListener = object : DatePickerDialog.OnDateSetListener {
+            override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
+                                   dayOfMonth: Int) {
+                cal.set(Calendar.YEAR, year)
+                cal.set(Calendar.MONTH, monthOfYear)
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                updateDateInView()
+            }
+        }
 
+        btnEditProfile.setOnClickListener {
 
             firstName.isFocusableInTouchMode=true
             firstName.isFocusable=true
@@ -67,21 +87,27 @@ class MyAccountActivity : AppCompatActivity() {
             btnEditProfile.setText("Submit")
             titletext.setText("Edit Profile")
             btnResetPassword.visibility = View.GONE
+            // when you click on the button, show DatePickerDialog that is set with OnDateSetListener
+            dobtext!!.setOnClickListener(object : View.OnClickListener {
+                override fun onClick(view: View) {
+                    DatePickerDialog(this@MyAccountActivity,
+                        dateSetListener,
+                        // set DatePickerDialog to point to today's date when it loads up
+                        cal.get(Calendar.YEAR),
+                        cal.get(Calendar.MONTH),
+                        cal.get(Calendar.DAY_OF_MONTH)).show()
+                }
+
+            })
+
         }
 
-//        if (type.equals("edit"))
-//        {
-//            dobText.setOnClickListener {
-//                fetchUserDataViewModel.date(it.context)
-//                fetchUserDataViewModel.getDate()?.observe(this,object :Observer<String>{
-//                    override fun onChanged(t: String?) {
-//                        Toast.makeText(this@MyAccountActivity,"$t",Toast.LENGTH_LONG).show()
-//                        dobText.text=t
-//                    }
-//                })
-//            }
-//        }
+    }
 
+    private fun updateDateInView() {
+        val myFormat = "dd-mm-yyyy" // mention the format you need
+        val sdf = SimpleDateFormat(myFormat, Locale.US)
+        dobtext!!.text = sdf.format(cal.getTime())
     }
 
     fun getImageGallery()
@@ -107,6 +133,7 @@ class MyAccountActivity : AppCompatActivity() {
                 lastName.setText(t.data.user_data.last_name)
                 email.setText(t.data.user_data.email)
                 mobileEditText.setText(t.data.user_data.phone_no)
+                dobText.setText(t.data.user_data.dob)
             }
         })
     }

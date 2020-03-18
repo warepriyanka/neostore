@@ -24,7 +24,7 @@ data class UserData(
     val access_token: String,
     val country_id: Any?,
     val created: String,
-    val dob: Any?,
+    val dob: String,
     val email: String,
     val first_name: String,
     val gender: String,
