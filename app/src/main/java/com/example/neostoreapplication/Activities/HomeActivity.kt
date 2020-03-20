@@ -217,18 +217,25 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
             if (arguments!!.getInt(ARG_SECTION_NUMBER)==1)
             {
                 rootView.bannerImageView.setImageResource(R.drawable.slider_img1)
+                rootView.imgcount.setText(arguments!!.getInt(ARG_SECTION_NUMBER).toString()+"/"+"4")
             }
             if (arguments!!.getInt(ARG_SECTION_NUMBER)==2)
             {
                 rootView.bannerImageView.setImageResource(R.drawable.slider_img2)
+                rootView.imgcount.setText(arguments!!.getInt(ARG_SECTION_NUMBER).toString()+"/"+ "4")
+
             }
             if (arguments!!.getInt(ARG_SECTION_NUMBER)==3)
             {
                 rootView.bannerImageView.setImageResource(R.drawable.slider_img3)
+                rootView.imgcount.setText(arguments!!.getInt(ARG_SECTION_NUMBER).toString()+"/"+ "4")
+
             }
             if (arguments!!.getInt(ARG_SECTION_NUMBER)==4)
             {
                 rootView.bannerImageView.setImageResource(R.drawable.slider_img4)
+                rootView.imgcount.setText(arguments!!.getInt(ARG_SECTION_NUMBER).toString()+"/"+ "4")
+
             }
 
 
