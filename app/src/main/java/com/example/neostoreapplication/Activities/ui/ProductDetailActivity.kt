@@ -34,11 +34,13 @@ class ProductDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_product_detail)
         val productId=intent.getIntExtra("productId",0)
         val productName = intent.getStringExtra("productName")
+
         val factory= ProductDetailViewModel.Factory(this.application)
+        productDetailViewModel= ViewModelProviders.of(this,factory).get(ProductDetailViewModel::class.java)
+
         val text=findViewById<TextView>(com.example.neostoreapplication.R.id.titletext)
         val imgback = findViewById<ImageView>(R.id.backbtn)
         text.setText(productName)
-        productDetailViewModel= ViewModelProviders.of(this,factory).get(ProductDetailViewModel::class.java)
 
         getProductDetail(productId.toString())
 
@@ -98,7 +100,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
     fun setImage(url:String)
     {
-        val image=findViewById<ImageView>(com.example.neostoreapplication.R.id.productImageVieww)
+        val image=findViewById<ImageView>(R.id.productImageVieww)
         Picasso.get().load(url).into(image)
     }
 

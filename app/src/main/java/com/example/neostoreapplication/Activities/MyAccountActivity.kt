@@ -1,14 +1,20 @@
 package com.example.neostoreapplication.Activities
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.DatePicker
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.neostoreapplication.Model.Responses.getUserData
@@ -16,12 +22,15 @@ import com.example.neostoreapplication.R
 import com.example.neostoreapplication.ViewModel.UserDataViewModel
 import com.example.neostoreapplication.utils.SessionManager
 import kotlinx.android.synthetic.main.activity_my_account.*
-import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.activity_sign_up.email
 import kotlinx.android.synthetic.main.activity_sign_up.firstName
 import kotlinx.android.synthetic.main.activity_sign_up.lastName
+import java.io.FileNotFoundException
+import java.io.IOException
+import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class MyAccountActivity : AppCompatActivity() {
 
@@ -29,6 +38,8 @@ class MyAccountActivity : AppCompatActivity() {
     lateinit var type:String
     var dobtext: TextView? = null
     var cal = Calendar.getInstance()
+    val RESULT_LOAD_IMAGE = 1
+    val imagepath: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +55,6 @@ class MyAccountActivity : AppCompatActivity() {
 
         btnResetPassword.setOnClickListener{
             val tableIntent = Intent(this, ResetPasswordActivity::class.java)
-
             this?.startActivity(tableIntent)
         }
 
@@ -58,8 +68,7 @@ class MyAccountActivity : AppCompatActivity() {
 
         // create an OnDateSetListener
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {
-            override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
-                                   dayOfMonth: Int) {
+            override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int) {
                 cal.set(Calendar.YEAR, year)
                 cal.set(Calendar.MONTH, monthOfYear)
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
@@ -100,6 +109,54 @@ class MyAccountActivity : AppCompatActivity() {
 
             })
 
+            userImage.setOnClickListener {
+                getImageFromAlbum();
+            }
+
+            updateUserData()
+        }
+    }
+
+    private fun getImageFromAlbum() {
+        try {
+            val i = Intent(
+                Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            )
+            startActivityForResult(i, RESULT_LOAD_IMAGE)
+        } catch (exp: Exception) {
+            Log.i("Error", exp.toString())
+        }
+    }
+
+
+    public override fun onActivityResult(requestCode:Int, resultCode:Int, data: Intent?) {
+
+        super.onActivityResult(requestCode, resultCode, data)
+        /* if (resultCode == this.RESULT_CANCELED)
+         {
+         return
+         }*/
+        if (requestCode == RESULT_LOAD_IMAGE)
+        {
+            if (data != null)
+            {
+                val contentURI = data!!.data
+                try
+                {
+                    val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, contentURI)
+//                    val path = saveImage(bitmap)
+                    Toast.makeText(this@MyAccountActivity, "Image Saved!", Toast.LENGTH_SHORT).show()
+                    userImage!!.setImageBitmap(bitmap)
+
+                }
+                catch (e: IOException) {
+                    e.printStackTrace()
+                    Toast.makeText(this@MyAccountActivity, "Failed!", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+
         }
 
     }
@@ -118,12 +175,6 @@ class MyAccountActivity : AppCompatActivity() {
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI),1234)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        val selectedImage=data?.data
-        userImage.setImageURI(selectedImage)
-    }
-
     fun getUserData()
     {
         fetchUserDataViewModel.getUserData(SessionManager(this).getToken())
@@ -137,6 +188,21 @@ class MyAccountActivity : AppCompatActivity() {
             }
         })
     }
+
+    fun updateUserData()
+    {
+        fetchUserDataViewModel.updateUserData(SessionManager(this).getToken(), email?.text.toString(),dobtext?.text.toString(),mobileEditText?.text.toString(),mobileEditText?.text.toString())
+        fetchUserDataViewModel.getUserDataResponse().observe(this,object: Observer<getUserData> {
+            override fun onChanged(t: getUserData?) {
+                firstName.setText(t!!.data.user_data.first_name)
+                lastName.setText(t.data.user_data.last_name)
+                email.setText(t.data.user_data.email)
+                mobileEditText.setText(t.data.user_data.phone_no)
+                dobText.setText(t.data.user_data.dob)
+            }
+        })
+    }
+
 
     fun disableEditText()
     {

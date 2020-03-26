@@ -1,18 +1,21 @@
 package com.example.neostoreapplication.Activities
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.*
 import android.graphics.drawable.GradientDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Window
+import android.widget.Button
 import android.widget.ImageView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.neostoreapplication.Activities.ui.AddressListActivity
 import com.example.neostoreapplication.Adapter.MyCartAdapter
 import com.example.neostoreapplication.Model.Responses.AddToCartResponse
 import com.example.neostoreapplication.Model.Responses.CartItemListData
@@ -36,6 +39,13 @@ class MyCartActivity : AppCompatActivity(){
         setContentView(R.layout.activity_my_cart)
 
         val imgback = findViewById<ImageView>(R.id.backbtn)
+        val btnOrderNow = findViewById<Button>(R.id.btnOrdereNow)
+        btnOrderNow.setOnClickListener{
+            intent = Intent(this@MyCartActivity,
+                AddressListActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
         imgback.setOnClickListener{
             finish()
         }

@@ -31,8 +31,7 @@ class SignUpActivity: AppCompatActivity() {
         setContentView(R.layout.activity_sign_up)
 
         val signUPFactory = SignUpViewModel.Factory(this.application)
-        signUpViewModel =
-            ViewModelProviders.of(this, signUPFactory).get(SignUpViewModel::class.java)
+        signUpViewModel = ViewModelProviders.of(this, signUPFactory).get(SignUpViewModel::class.java)
         firstName = findViewById<EditText>(R.id.firstName)
         lastName = findViewById<EditText>(R.id.lastName)
         email = findViewById<EditText>(R.id.email)

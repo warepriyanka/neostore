@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.ProductListActivity">
+    tools:context=".Activities.OrderListActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -29,13 +29,13 @@
             android:textSize="69px"
             android:textStyle="bold"
             android:id="@+id/titletext"
-            android:text="NeoSTORE"/>
+            android:text="My Orders"/>
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@id/toolbar"
-        android:layout_margin="20px"
-        android:id="@+id/productRecyclerView"
+        android:id="@+id/orderRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"/>
+
 </RelativeLayout>

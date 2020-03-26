@@ -18,7 +18,7 @@ import com.example.neostoreapplication.utils.SessionManager
 
 class ResetPasswordActivity : AppCompatActivity() {
 
-lateinit var resetPasswordViewModel: ResetPasswordViewModel
+    lateinit var resetPasswordViewModel: ResetPasswordViewModel
     var current_password : EditText? = null
     var new_password : EditText? = null
     var confirm_password : EditText? = null

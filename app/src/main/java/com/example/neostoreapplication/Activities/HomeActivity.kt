@@ -7,17 +7,19 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.drawerlayout.widget.DrawerLayout
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.neostoreapplication.Adapter.NavigationAdapter
-import com.example.neostoreapplication.ViewModel.NavigationModel
 import com.example.neostoreapplication.R
+import com.example.neostoreapplication.Model.Responses.NavigationModel
 import com.example.neostoreapplication.utils.SessionManager
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.content_home.*
@@ -43,7 +45,18 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
         val sessioManger= SessionManager(applicationContext)
         Log.e("token",sessioManger.getToken())
 //Toast.makeText(this,sessioManger.getToken(),Toast.LENGTH_LONG).show()
+
+        val menuIcon: ImageView = findViewById(R.id.menuicon);
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+
+        menuIcon.setOnClickListener {
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.closeDrawers()
+            } else {
+                drawerLayout.openDrawer(GravityCompat.START)
+            }
+        }
+
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home,
@@ -134,59 +147,68 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun perpareNavData() {
-        var navData = NavigationModel(
-            R.drawable.shopping_cart,
-            "My Cart",
-            "2"
-        )
+        var navData =
+            NavigationModel(
+                R.drawable.shopping_cart,
+                "My Cart",
+                "2"
+            )
         navigationModel.add(navData)
-        navData = NavigationModel(
-            R.drawable.table,
-            "Tables",
-            "0"
-        )
+        navData =
+            NavigationModel(
+                R.drawable.table,
+                "Tables",
+                "0"
+            )
         navigationModel.add(navData)
-        navData = NavigationModel(
-            R.drawable.sofa,
-            "Sofas",
-            "0"
-        )
+        navData =
+            NavigationModel(
+                R.drawable.sofa,
+                "Sofas",
+                "0"
+            )
         navigationModel.add(navData)
-        navData = NavigationModel(
-            R.drawable.chair,
-            "Chairs",
-            "0"
-        )
+        navData =
+            NavigationModel(
+                R.drawable.chair,
+                "Chairs",
+                "0"
+            )
         navigationModel.add(navData)
-        navData = NavigationModel(
-            R.drawable.cupboard,
-            "CupBoards",
-            "0"
-        )
+        navData =
+            NavigationModel(
+                R.drawable.cupboard,
+                "CupBoards",
+                "0"
+            )
         navigationModel.add(navData)
-        navData = NavigationModel(
-            R.drawable.username_icon,
-            "My Account",
-            "0"
-        )
+        navData =
+            NavigationModel(
+                R.drawable.username_icon,
+                "My Account",
+                "0"
+            )
         navigationModel.add(navData)
-        navData = NavigationModel(
-            R.drawable.storelocator_icon,
-            "Store Locator",
-            "0"
-        )
+        navData =
+            NavigationModel(
+                R.drawable.storelocator_icon,
+                "Store Locator",
+                "0"
+            )
         navigationModel.add(navData)
-        navData = NavigationModel(
-            R.drawable.myorders_icon,
-            "My Orders",
-            "0"
-        )
+        navData =
+            NavigationModel(
+                R.drawable.myorders_icon,
+                "My Orders",
+                "0"
+            )
         navigationModel.add(navData)
-        navData = NavigationModel(
-            R.drawable.logout_icon,
-            "Logout",
-            "0"
-        )
+        navData =
+            NavigationModel(
+                R.drawable.logout_icon,
+                "Logout",
+                "0"
+            )
         navigationModel.add(navData)
 
     }

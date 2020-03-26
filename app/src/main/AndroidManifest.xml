@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".CoreApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -15,7 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activities.ResetPasswordActivity"></activity>
+        <activity android:name=".Activities.OrderDetailsActivity"></activity>
+        <activity android:name=".Activities.OrderListActivity" />
+        <activity android:name=".Activities.ui.AddAddressActivity" />
+        <activity android:name=".Activities.ui.AddressListActivity" />
+        <activity android:name=".Activities.ResetPasswordActivity" />
         <activity android:name=".Activities.ui.ProductDetailActivity" />
         <activity android:name=".Activities.MyAccountActivity" />
         <activity android:name=".Activities.MyCartActivity" />

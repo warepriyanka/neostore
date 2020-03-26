@@ -33,8 +33,9 @@ class NetworkController {
         var data = MutableLiveData<registerUser>()
         service?.registerUser(firstName,lastName,email, password,cnfPassword,gender,phoneNumber)?.enqueue(object :
             Callback<registerUser> {
-            override fun onFailure(call: Call<registerUser>?, t: Throwable?) {
-                data.value=(null)
+            override fun onFailure(call: Call<registerUser>?, t: Throwable) {
+                t.printStackTrace()
+                data.value = (null)
             }
 
             override fun onResponse(call: Call<registerUser>?, response: Response<registerUser>?) {
@@ -48,8 +49,9 @@ class NetworkController {
     {
         var data =MutableLiveData<getLogin>()
         service?.login(email, password)?.enqueue(object :Callback<getLogin>{
-            override fun onFailure(call: Call<getLogin>?, t: Throwable?) {
-                data.value=(null)
+            override fun onFailure(call: Call<getLogin>?, t: Throwable) {
+                t.printStackTrace()
+                data.value = (null)
             }
 
             override fun onResponse(call: Call<getLogin>?, response: Response<getLogin>?) {
@@ -63,8 +65,9 @@ class NetworkController {
     {
         var data=MutableLiveData<getProduct>()
         service?.productList(productCategoryId,limit.toInt(),page.toInt())?.enqueue(object :Callback<getProduct>{
-            override fun onFailure(call: Call<getProduct>?, t: Throwable?) {
-                data.value=(null)
+            override fun onFailure(call: Call<getProduct>?, t: Throwable) {
+                t.printStackTrace()
+                data.value = (null)
             }
 
             override fun onResponse(call: Call<getProduct>?, response: Response<getProduct>?) {
@@ -77,8 +80,9 @@ class NetworkController {
     fun getProductDetails(product_id: String):LiveData<ProductDetailResponse>{
         var data = MutableLiveData<ProductDetailResponse>()
         service?.getDetail(product_id)?.enqueue(object:Callback<ProductDetailResponse>{
-            override fun onFailure(call: Call<ProductDetailResponse>?, t: Throwable?) {
-                data.value=(null)
+            override fun onFailure(call: Call<ProductDetailResponse>?, t: Throwable) {
+                t.printStackTrace()
+                data.value = (null)
             }
 
             override fun onResponse(call: Call<ProductDetailResponse>?, response: Response<ProductDetailResponse>?) {
@@ -93,8 +97,9 @@ class NetworkController {
     {
         var data=MutableLiveData<AddToCartResponse>()
         service?.addToCart(accessToken,productId.toInt(),quantity.toInt())?.enqueue(object :Callback<AddToCartResponse>{
-            override fun onFailure(call: Call<AddToCartResponse>?, t: Throwable?) {
-                data.value=(null)
+            override fun onFailure(call: Call<AddToCartResponse>?, t: Throwable) {
+                t.printStackTrace()
+                data.value = (null)
             }
 
             override fun onResponse(
@@ -110,19 +115,48 @@ class NetworkController {
 
     fun getMyCartList(accessToken: String):LiveData<GetCartItemResponse>
     {
-        var data=MutableLiveData<GetCartItemResponse>()
-        service?.getMycart(accessToken)?.enqueue(object :Callback<GetCartItemResponse>{
-            override fun onFailure(call: Call<GetCartItemResponse>?, t: Throwable?) {
 
+            var data = MutableLiveData<GetCartItemResponse>()
+            try {
+                service?.getMycart(accessToken)?.enqueue(object : Callback<GetCartItemResponse> {
+                    override fun onFailure(call: Call<GetCartItemResponse>?, t: Throwable) {
+                        t.printStackTrace()
+                        data.value = (null)
+                    }
+
+                    override fun onResponse(
+                        call: Call<GetCartItemResponse>?,
+                        response: Response<GetCartItemResponse>?
+                    ) {
+                        data.value = response?.body()
+                    }
+                })
+
+            }catch (e: Exception){
+                e.printStackTrace()
+            }
+            return data
+    }
+
+    fun getOrderList(accessToken: String):LiveData<OrderListResponse>
+    {
+        var data=MutableLiveData<OrderListResponse>()
+        try {
+
+            service?.getOrder(accessToken)?.enqueue(object :Callback<OrderListResponse>{
+            override fun onFailure(call: Call<OrderListResponse>?, t: Throwable) {
+                t.printStackTrace()
+                data.value = (null)
             }
 
-            override fun onResponse(
-                call: Call<GetCartItemResponse>?,
-                response: Response<GetCartItemResponse>?
+            override fun onResponse(call: Call<OrderListResponse>?, response: Response<OrderListResponse>?
             ) {
                 data.value=response?.body()
             }
         })
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
         return data
     }
 
@@ -130,8 +164,9 @@ class NetworkController {
     {
         var data=MutableLiveData<AddToCartResponse>()
         service?.editCart(accessToken,productId.toInt(),quantity.toInt())?.enqueue(object :Callback<AddToCartResponse>{
-            override fun onFailure(call: Call<AddToCartResponse>?, t: Throwable?) {
-
+            override fun onFailure(call: Call<AddToCartResponse>?, t: Throwable) {
+                t.printStackTrace()
+                data.value = (null)
             }
 
             override fun onResponse(
@@ -150,13 +185,13 @@ class NetworkController {
     {
         var data=MutableLiveData<AddToCartResponse>()
         service?.deleteCart(accessToken,productId.toInt())?.enqueue(object :Callback<AddToCartResponse>{
-            override fun onFailure(call: Call<AddToCartResponse>?, t: Throwable?) {
+            override fun onFailure(call: Call<AddToCartResponse>?, t: Throwable) {
+                t.printStackTrace()
+                data.value = (null)
 
             }
 
-            override fun onResponse(
-                call: Call<AddToCartResponse>?,
-                response: Response<AddToCartResponse>?
+            override fun onResponse(call: Call<AddToCartResponse>?, response: Response<AddToCartResponse>?
             ) {
                 data.value=response?.body()
             }
@@ -169,8 +204,9 @@ class NetworkController {
     {
         var data=MutableLiveData<getUserData>()
         service?.getUserData(accessToken)?.enqueue(object :Callback<getUserData>{
-            override fun onFailure(call: Call<getUserData>?, t: Throwable?) {
-
+            override fun onFailure(call: Call<getUserData>?, t: Throwable) {
+                t.printStackTrace()
+                data.value = (null)
             }
 
             override fun onResponse(
@@ -183,12 +219,34 @@ class NetworkController {
         return data
     }
 
+
+    fun saveUserData(accessToken: String, email: String, dob: String, phoneNumber: String, profile_pic: String):LiveData<UserData>
+    {
+        var data=MutableLiveData<UserData>()
+        service?.updateUserData(accessToken, email, dob, phoneNumber, profile_pic)?.enqueue(object :Callback<UserData>{
+            override fun onFailure(call: Call<UserData>?, t: Throwable) {
+                t.printStackTrace()
+                data.value = (null)
+            }
+
+            override fun onResponse(
+                call: Call<UserData>?,
+                response: Response<UserData>?
+            ) {
+                data.value=response?.body()
+            }
+        })
+        return data
+    }
+
+
     fun resetPassword(accessToken:String,old_password:String,password:String, confirm_password:String):LiveData<ChangePasswordResponse>
     {
         var data=MutableLiveData<ChangePasswordResponse>()
         service?.changePassword(accessToken,old_password,password, confirm_password)?.enqueue(object :Callback<ChangePasswordResponse>{
-            override fun onFailure(call: Call<ChangePasswordResponse>?, t: Throwable?) {
-                data.value=(null)
+            override fun onFailure(call: Call<ChangePasswordResponse>?, t: Throwable) {
+                t.printStackTrace()
+                data.value = (null)
             }
 
             override fun onResponse(
@@ -201,4 +259,26 @@ class NetworkController {
 
         return data
     }
+
+
+    fun placeOrder(accessToken:String, address:String):LiveData<ChangePasswordResponse>
+    {
+        var data=MutableLiveData<ChangePasswordResponse>()
+        service?.placeOrder1(accessToken,address)?.enqueue(object :Callback<ChangePasswordResponse>{
+            override fun onFailure(call: Call<ChangePasswordResponse>?, t: Throwable) {
+                t.printStackTrace()
+                data.value = (null)
+            }
+
+            override fun onResponse(
+                call: Call<ChangePasswordResponse>?,
+                response: Response<ChangePasswordResponse>?
+            ) {
+                data.value=response?.body()
+            }
+        })
+
+        return data
+    }
+
 }

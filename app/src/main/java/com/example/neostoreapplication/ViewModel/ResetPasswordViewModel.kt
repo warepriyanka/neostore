@@ -26,7 +26,7 @@ class ResetPasswordViewModel :AndroidViewModel{
 
     class Factory(val application: Application): ViewModelProvider.NewInstanceFactory() {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return LoginViewModel(application) as T
+            return ResetPasswordViewModel(application) as T
         }
     }
 }
