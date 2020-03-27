@@ -24,22 +24,39 @@ class LoginActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        userName=findViewById<EditText>(R.id.userNameEditTextView)
+        password=findViewById<EditText>(R.id.passwordEditTextView)
+        val clicked =findViewById<Button>(R.id.submitBtn)
+        val user = userName?.text.toString()
+        val pass = password?.text.toString()
+
         val factory=LoginViewModel.Factory(this.application)
         loginViewModel= ViewModelProviders.of(this,factory).get(LoginViewModel::class.java)
         val signUp =findViewById<ImageButton>(R.id.signUpButton)
         signUp.setOnClickListener{
-            Toast.makeText(this,"hi", Toast.LENGTH_LONG).show()
-            intent = Intent(applicationContext,
+//            Toast.makeText(this,"hi", Toast.LENGTH_LONG).show()
 
-                HomeActivity::class.java)
-            startActivity(intent)
+//            if (user.equals("") && pass.equals("")) {
+//                Toast.makeText(this, "Check Username and password", Toast.LENGTH_SHORT).show()
+//            }else {
+                intent = Intent(
+                    applicationContext,
+
+                    SignUpActivity::class.java
+                )
+                startActivity(intent)
+//            }
         }
-        userName=findViewById<EditText>(R.id.userNameEditTextView)
-        password=findViewById<EditText>(R.id.passwordEditTextView)
-        val clicked =findViewById<Button>(R.id.submitBtn)
-        clicked.setOnClickListener{
-            Toast.makeText(this,"Login button click",Toast.LENGTH_LONG).show()
-            login()
+
+
+        clicked.setOnClickListener {
+
+//            if (user.equals("") && pass.equals("")) {
+//                Toast.makeText(this, "Check Username and password", Toast.LENGTH_SHORT).show()
+//            } else {
+                login()
+//            }
         }
     }
 

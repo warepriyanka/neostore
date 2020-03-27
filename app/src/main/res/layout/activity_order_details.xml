@@ -38,4 +38,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/orderDetailRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+
+            android:id="@+id/totalPriceRelativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="200px">
+            <TextView
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="45px"
+                android:textColor="#333333"
+                android:text="Total"
+                android:layout_alignParentLeft="true" />
+            <TextView
+                android:id="@+id/totalPriceTextView"
+                android:layout_centerInParent="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="45px"
+                android:text="$300"
+                android:textColor="#333333"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
 </RelativeLayout>

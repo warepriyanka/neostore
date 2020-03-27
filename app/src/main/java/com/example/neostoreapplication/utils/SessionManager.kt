@@ -60,7 +60,6 @@ class SessionManager {
 
         }
 
-
     }
 
     fun logout() {

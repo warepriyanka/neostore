@@ -8,12 +8,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.neostoreapplication.Activities.MyAccountActivity
-import com.example.neostoreapplication.Activities.MyCartActivity
-import com.example.neostoreapplication.Activities.OrderListActivity
-import com.example.neostoreapplication.Activities.ProductListActivity
+import com.example.neostoreapplication.Activities.*
 import com.example.neostoreapplication.Model.Responses.NavigationModel
 import com.example.neostoreapplication.R
+import com.example.neostoreapplication.utils.SessionManager
 
 class NavigationAdapter (innerContext: Context, innerNavModelList: ArrayList<NavigationModel>) : RecyclerView.Adapter<NavigationAdapter.MyViewHolder>() {
 
@@ -89,6 +87,11 @@ class NavigationAdapter (innerContext: Context, innerNavModelList: ArrayList<Nav
                 }
                 7 ->{val tableIntent = Intent(context,OrderListActivity::class.java)
 
+                    context?.startActivity(tableIntent)
+                }
+                8 ->{val tableIntent = Intent(context,LoginActivity::class.java)
+                    val  sessionManger= SessionManager( context)
+                    sessionManger.logout()
                     context?.startActivity(tableIntent)
                 }
 

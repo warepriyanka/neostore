@@ -32,6 +32,8 @@ class ProductDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_detail)
+
+
         val productId=intent.getIntExtra("productId",0)
         val productName = intent.getStringExtra("productName")
 

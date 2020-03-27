@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.neostoreapplication.Model.Responses.OrderDeailData
+import com.example.neostoreapplication.Model.Responses.OrderDetailData
+import com.example.neostoreapplication.Model.Responses.order_details
 import com.example.neostoreapplication.R
 
-class OrderDetailAdapter (innerContext: Context, innerCartItemList: List<OrderDeailData>):
+class OrderDetailAdapter (innerContext: Context, innerCartItemList: ArrayList<order_details>):
     RecyclerView.Adapter<OrderDetailAdapter.MyViewHolder>() {
 
     val context=innerContext

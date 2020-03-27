@@ -61,6 +61,6 @@ interface Api {
     fun  getOrder(@Header("access_token")access_token:String):Call<OrderListResponse>
 
     @GET("orderDetail")
-    fun  getOrderDetail(@Header("access_token")access_token:String,  @Field("order_id")order_id: Int):Call<OrderDetailResponse>
+    fun  getOrderDetail(@Header("access_token")access_token:String,  @Query("order_id")order_id: Int):Call<OrderDetailResponse>
 
 }

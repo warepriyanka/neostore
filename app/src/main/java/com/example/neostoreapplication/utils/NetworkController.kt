@@ -160,6 +160,29 @@ class NetworkController {
         return data
     }
 
+
+    fun getOrderDetails(accessToken: String, orderId: Int):LiveData<OrderDetailResponse>
+    {
+        var data=MutableLiveData<OrderDetailResponse>()
+        try {
+
+            service?.getOrderDetail(accessToken, orderId)?.enqueue(object :Callback<OrderDetailResponse>{
+                override fun onFailure(call: Call<OrderDetailResponse>?, t: Throwable) {
+                    t.printStackTrace()
+                    data.value = (null)
+                }
+
+                override fun onResponse(call: Call<OrderDetailResponse>?, response: Response<OrderDetailResponse>?
+                ) {
+                    data.value=response?.body()
+                }
+            })
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
+        return data
+    }
+
     fun editCart(accessToken:String,productId:String,quantity:String):LiveData<AddToCartResponse>
     {
         var data=MutableLiveData<AddToCartResponse>()

@@ -1,16 +1,16 @@
 package com.example.neostoreapplication.Model.Responses
 
 data class OrderDetailResponse(
-    val count: Int,
-    val data: List<OrderDeailData>
+    val status: Int,
+    val data: OrderDetailData?
 
 )
 
-data class OrderDeailData(
+data class OrderDetailData(
     val id: Int,
     val cost: Int,
     val created: String,
-    val data: List<order_details>
+    val orderDetail: List<order_details>
 )
 
 data class order_details(

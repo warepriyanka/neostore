@@ -27,13 +27,12 @@ class ProductListActivity : AppCompatActivity() {
         val productName = intent.getStringExtra("product_name")
         val text=findViewById<TextView>(com.example.neostoreapplication.R.id.titletext)
         text.setText(productName)
-        val productListViewModelFactory =ProductListViewModel.Factory(intent.getStringExtra("product_id"),10,1,this.application)
-
         val imgback = findViewById<ImageView>(R.id.backbtn)
         imgback.setOnClickListener{
             finish()
         }
 
+        val productListViewModelFactory =ProductListViewModel.Factory(intent.getStringExtra("product_id"),10,1,this.application)
         productListViewModel= ViewModelProviders.of(this,productListViewModelFactory).get(ProductListViewModel::class.java)
         fetchProductList()
         val recyclerViewLayOutManager = LinearLayoutManager(applicationContext)
