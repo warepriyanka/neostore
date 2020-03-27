@@ -13,6 +13,7 @@ import com.example.neostoreapplication.Model.Responses.getLogin
 import com.example.neostoreapplication.R
 import com.example.neostoreapplication.ViewModel.LoginViewModel
 import com.example.neostoreapplication.utils.SessionManager
+import com.example.neostoreapplication.utils.Validation
 
 class LoginActivity: AppCompatActivity() {
 
@@ -51,12 +52,11 @@ class LoginActivity: AppCompatActivity() {
 
 
         clicked.setOnClickListener {
-
-//            if (user.equals("") && pass.equals("")) {
-//                Toast.makeText(this, "Check Username and password", Toast.LENGTH_SHORT).show()
-//            } else {
+            if (Validation.isNetworkAvailable(this)) {
                 login()
-//            }
+            } else {
+                Toast.makeText(this, "Please Check Internet connection", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

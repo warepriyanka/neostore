@@ -9,12 +9,14 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import com.example.neostoreapplication.Model.Responses.ChangePasswordResponse
 import com.example.neostoreapplication.Model.Responses.getLogin
 import com.example.neostoreapplication.R
 import com.example.neostoreapplication.ViewModel.LoginViewModel
 import com.example.neostoreapplication.ViewModel.ResetPasswordViewModel
 import com.example.neostoreapplication.utils.SessionManager
+import com.example.neostoreapplication.utils.Validation
 
 class ResetPasswordActivity : AppCompatActivity() {
 
@@ -49,19 +51,29 @@ class ResetPasswordActivity : AppCompatActivity() {
 
     fun changePassword()
     {
+        if(Validation.isNetworkAvailable(this)) {
 
-        resetPasswordViewModel.changePassword(SessionManager(this).getToken(),current_password?.text.toString(),
-            new_password?.text.toString(),confirm_password?.text.toString())
-        resetPasswordViewModel.getChangePasswordResponse().observe(this,object: Observer<ChangePasswordResponse> {
-            override fun onChanged(t: ChangePasswordResponse?) {
-                if (t?.status==200)
-                {
-                    Toast.makeText(applicationContext,"Password change successfully",Toast.LENGTH_LONG).show()
+            resetPasswordViewModel.changePassword(
+                SessionManager(this).getToken(), current_password?.text.toString(),
+                new_password?.text.toString(), confirm_password?.text.toString()
+            )
+            resetPasswordViewModel.getChangePasswordResponse()
+                .observe(this, object : Observer<ChangePasswordResponse> {
+                    override fun onChanged(t: ChangePasswordResponse?) {
+                        if (t?.status == 200) {
+                            Toast.makeText(
+                                applicationContext,
+                                "Password change successfully",
+                                Toast.LENGTH_LONG
+                            ).show()
 //                    startActivity(Intent(this@ProductDetailActivity, MyCartActivity::class.java))
-                    finish()
-                }
-            }
-        })
+                            finish()
+                        }
+                    }
+                })
+        }else{
+            Toast.makeText(this, "Please Check Internet connection", Toast.LENGTH_SHORT).show()
+        }
 
     }
 

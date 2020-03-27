@@ -19,6 +19,7 @@ class UserDataViewModel(application: Application): AndroidViewModel(application)
     val month = calender.get(Calendar.MONTH)
     val day = calender.get(Calendar.DAY_OF_MONTH)
     var dateSelected= MutableLiveData<String>()
+
     fun getUserData(accessToken:String)
     {
         userDataResponse=NetworkController().getInstance().getUserData(accessToken)

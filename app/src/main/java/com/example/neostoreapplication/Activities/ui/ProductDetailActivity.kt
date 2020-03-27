@@ -21,6 +21,7 @@ import com.example.neostoreapplication.Model.Responses.ProductImage
 import com.example.neostoreapplication.R
 import com.example.neostoreapplication.ViewModel.ProductDetailViewModel
 import com.example.neostoreapplication.utils.SessionManager
+import com.example.neostoreapplication.utils.Validation
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_product_detail.*
 import kotlinx.android.synthetic.main.dialog_buy_now.*
@@ -62,41 +63,57 @@ class ProductDetailActivity : AppCompatActivity() {
 
     fun getProductDetail(productId:String)
     {
-        productDetailViewModel.getProductDetail(productId)
-        productDetailViewModel.getProductDetailViewModel().observe(this,object: Observer<ProductDetailResponse>
-        {
-            override fun onChanged(t: ProductDetailResponse?) {
-                productNameTextView.text=t?.data?.name
-                val imageUrlArray=t?.data?.product_images as ArrayList<ProductImage>
-                val adapter= ProductImageAdapter(this@ProductDetailActivity,imageUrlArray)
-                val recyclerViewLayOutManager = LinearLayoutManager(applicationContext,
-                    LinearLayoutManager.HORIZONTAL,false)
-                productImageRecyclerView.layoutManager=recyclerViewLayOutManager
-                productImageRecyclerView.adapter=adapter
-                producerTextView.text=t.data.producer
-                descriptionTextView.text=t.data.description
-                val cost=t.data.cost.toString()
-                productPriceTextView.text="Rs. $cost"
-                imageUrl=t.data.product_images[0].image
-                setImage(imageUrl!!)
-            }
 
-        })
+        if(Validation.isNetworkAvailable(this)) {
+            productDetailViewModel.getProductDetail(productId)
+            productDetailViewModel.getProductDetailViewModel()
+                .observe(this, object : Observer<ProductDetailResponse> {
+                    override fun onChanged(t: ProductDetailResponse?) {
+                        productNameTextView.text = t?.data?.name
+                        val imageUrlArray = t?.data?.product_images as ArrayList<ProductImage>
+                        val adapter = ProductImageAdapter(this@ProductDetailActivity, imageUrlArray)
+                        val recyclerViewLayOutManager = LinearLayoutManager(
+                            applicationContext,
+                            LinearLayoutManager.HORIZONTAL, false
+                        )
+                        productImageRecyclerView.layoutManager = recyclerViewLayOutManager
+                        productImageRecyclerView.adapter = adapter
+                        producerTextView.text = t.data.producer
+                        descriptionTextView.text = t.data.description
+                        val cost = t.data.cost.toString()
+                        productPriceTextView.text = "Rs. $cost"
+                        imageUrl = t.data.product_images[0].image
+                        setImage(imageUrl!!)
+                    }
+
+                })
+        }else{
+            Toast.makeText(this, "Please Check Internet connection", Toast.LENGTH_SHORT).show()
+        }
     }
 
     fun buyNow(productId: String,quantity:String)
     {
-        productDetailViewModel.addtoCart(SessionManager(this).getToken(),productId,quantity)
-        productDetailViewModel.getAddToCartResponseVM().observe(this,object: Observer<AddToCartResponse> {
-            override fun onChanged(t: AddToCartResponse?) {
-                if (t?.status==200)
-                {
-                    //Toast.makeText(this,t.message,Toast.LENGTH_LONG).show()
-                    startActivity(Intent(this@ProductDetailActivity, MyCartActivity::class.java))
-                    finish()
-                }
-            }
-        })
+        if(Validation.isNetworkAvailable(this)) {
+            productDetailViewModel.addtoCart(SessionManager(this).getToken(), productId, quantity)
+            productDetailViewModel.getAddToCartResponseVM()
+                .observe(this, object : Observer<AddToCartResponse> {
+                    override fun onChanged(t: AddToCartResponse?) {
+                        if (t?.status == 200) {
+                            //Toast.makeText(this,t.message,Toast.LENGTH_LONG).show()
+                            startActivity(
+                                Intent(
+                                    this@ProductDetailActivity,
+                                    MyCartActivity::class.java
+                                )
+                            )
+                            finish()
+                        }
+                    }
+                })
+        }else{
+            Toast.makeText(this, "Please Check Internet connection", Toast.LENGTH_SHORT).show()
+        }
 
     }
 

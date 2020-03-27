@@ -26,6 +26,7 @@ import com.example.neostoreapplication.R
 import com.example.neostoreapplication.ViewModel.AddressViewModel
 import com.example.neostoreapplication.ViewModel.PlaceOredrViewModel
 import com.example.neostoreapplication.utils.SessionManager
+import com.example.neostoreapplication.utils.Validation
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_address_list.*
 import kotlinx.android.synthetic.main.activity_my_cart.*
@@ -79,19 +80,31 @@ class AddressListActivity : AppCompatActivity() {
 
     fun placeNewOrder(address: String)
     {
-        Toast.makeText(applicationContext,"Order placed successfully",Toast.LENGTH_LONG).show()
 
-        placeOrderViewModel.placeOrder(SessionManager(this).getToken(),address)
-        placeOrderViewModel.getResponse().observe(this,object: Observer<ChangePasswordResponse> {
-            override fun onChanged(t: ChangePasswordResponse?) {
-                if (t?.status==200)
-                {
-                    Toast.makeText(applicationContext,"Order placed successfully",Toast.LENGTH_LONG).show()
-                    startActivity(Intent(this@AddressListActivity, OrderListActivity::class.java))
-                    finish()
-                }
-            }
-        })
+        if(Validation.isNetworkAvailable(this)) {
+            placeOrderViewModel.placeOrder(SessionManager(this).getToken(), address)
+            placeOrderViewModel.getResponse()
+                .observe(this, object : Observer<ChangePasswordResponse> {
+                    override fun onChanged(t: ChangePasswordResponse?) {
+                        if (t?.status == 200) {
+                            Toast.makeText(
+                                applicationContext,
+                                "Order placed successfully",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            startActivity(
+                                Intent(
+                                    this@AddressListActivity,
+                                    OrderListActivity::class.java
+                                )
+                            )
+                            finish()
+                        }
+                    }
+                })
+        }else{
+            Toast.makeText(this, "Please Check Internet connection", Toast.LENGTH_SHORT).show()
+        }
 
     }
 

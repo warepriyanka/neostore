@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +13,7 @@ import com.example.neostoreapplication.Model.Responses.ProductData
 import com.example.neostoreapplication.Model.Responses.getProduct
 import com.example.neostoreapplication.R
 import com.example.neostoreapplication.ViewModel.ProductListViewModel
+import com.example.neostoreapplication.utils.Validation
 import kotlinx.android.synthetic.main.activity_product_list.*
 
 class ProductListActivity : AppCompatActivity() {
@@ -41,13 +43,18 @@ class ProductListActivity : AppCompatActivity() {
 
     fun fetchProductList()
     {
-        productListViewModel.getProductListData().observe(this,object: Observer<getProduct> {
-            override fun onChanged(t: getProduct?) {
-                productDetailList= t?.data as ArrayList<ProductData>
-                productListAdapter = ProductListAdapter(this@ProductListActivity,productDetailList)
-                productRecyclerView.adapter = productListAdapter
-            }
-        })
+        if(Validation.isNetworkAvailable(this)) {
+            productListViewModel.getProductListData().observe(this, object : Observer<getProduct> {
+                override fun onChanged(t: getProduct?) {
+                    productDetailList = t?.data as ArrayList<ProductData>
+                    productListAdapter =
+                        ProductListAdapter(this@ProductListActivity, productDetailList)
+                    productRecyclerView.adapter = productListAdapter
+                }
+            })
+        }else{
+            Toast.makeText(this, "Please Check Internet connection", Toast.LENGTH_SHORT).show()
+        }
 
     }
 }

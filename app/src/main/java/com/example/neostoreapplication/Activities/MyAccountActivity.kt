@@ -21,6 +21,7 @@ import com.example.neostoreapplication.Model.Responses.getUserData
 import com.example.neostoreapplication.R
 import com.example.neostoreapplication.ViewModel.UserDataViewModel
 import com.example.neostoreapplication.utils.SessionManager
+import com.example.neostoreapplication.utils.Validation
 import kotlinx.android.synthetic.main.activity_my_account.*
 import kotlinx.android.synthetic.main.activity_sign_up.email
 import kotlinx.android.synthetic.main.activity_sign_up.firstName
@@ -177,16 +178,21 @@ class MyAccountActivity : AppCompatActivity() {
 
     fun getUserData()
     {
-        fetchUserDataViewModel.getUserData(SessionManager(this).getToken())
-        fetchUserDataViewModel.getUserDataResponse().observe(this,object: Observer<getUserData> {
-            override fun onChanged(t: getUserData?) {
-                firstName.setText(t!!.data.user_data.first_name)
-                lastName.setText(t.data.user_data.last_name)
-                email.setText(t.data.user_data.email)
-                mobileEditText.setText(t.data.user_data.phone_no)
-                dobText.setText(t.data.user_data.dob)
-            }
-        })
+        if(Validation.isNetworkAvailable(this)) {
+            fetchUserDataViewModel.getUserData(SessionManager(this).getToken())
+            fetchUserDataViewModel.getUserDataResponse()
+                .observe(this, object : Observer<getUserData> {
+                    override fun onChanged(t: getUserData?) {
+                        firstName.setText(t!!.data.user_data.first_name)
+                        lastName.setText(t.data.user_data.last_name)
+                        email.setText(t.data.user_data.email)
+                        mobileEditText.setText(t.data.user_data.phone_no)
+                        dobText.setText(t.data.user_data.dob)
+                    }
+                })
+        }else{
+            Toast.makeText(this, "Please Check Internet connection", Toast.LENGTH_SHORT).show()
+        }
     }
 
     fun updateUserData()

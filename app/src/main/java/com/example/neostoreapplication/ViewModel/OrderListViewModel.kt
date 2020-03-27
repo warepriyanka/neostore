@@ -16,7 +16,7 @@ class OrderListViewModel: AndroidViewModel {
 
     constructor(application: Application):super(application)
 
-    fun getCartList(accessToken:String)
+    fun getOrderList(accessToken:String)
     {
         orderListResponse= NetworkController().getInstance().getOrderList(accessToken)
     }

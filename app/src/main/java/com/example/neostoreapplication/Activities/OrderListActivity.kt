@@ -3,6 +3,7 @@ package com.example.neostoreapplication.Activities
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -14,6 +15,7 @@ import com.example.neostoreapplication.Model.Responses.OrderListResponse
 import com.example.neostoreapplication.R
 import com.example.neostoreapplication.ViewModel.OrderListViewModel
 import com.example.neostoreapplication.utils.SessionManager
+import com.example.neostoreapplication.utils.Validation
 import kotlinx.android.synthetic.main.activity_order_list.*
 
 
@@ -50,19 +52,24 @@ class OrderListActivity : AppCompatActivity() {
 
     fun getOrderList()
     {
+        if(Validation.isNetworkAvailable(this)) {
 
-        orderListViewModel.getCartList(SessionManager(this).getToken())
-        orderListViewModel.getOrderResponse().observe(this,object : Observer<OrderListResponse> {
-            override fun onChanged(t: OrderListResponse?) {
-                orderListData= t!!.data as ArrayList<OrderListData>
+            orderListViewModel.getOrderList(SessionManager(this).getToken())
+            orderListViewModel.getOrderResponse()
+                .observe(this, object : Observer<OrderListResponse> {
+                    override fun onChanged(t: OrderListResponse?) {
+                        orderListData = t!!.data as ArrayList<OrderListData>
 
-                Log.e("hhh",orderListData?.size.toString())
+                        Log.e("hhh", orderListData?.size.toString())
 //                val totalPrice=t?.total.toString()
 //                totalPriceTextView.text="₹ $totalPrice"
-                orderListAdapter = OrderListAdapter(this@OrderListActivity,orderListData)
-                orderRecyclerView.adapter = orderListAdapter
-            }
-        })
+                        orderListAdapter = OrderListAdapter(this@OrderListActivity, orderListData)
+                        orderRecyclerView.adapter = orderListAdapter
+                    }
+                })
+        }else{
+            Toast.makeText(this, "Please Check Internet connection", Toast.LENGTH_SHORT).show()
+        }
 
     }
 }

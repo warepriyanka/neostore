@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.Window
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -23,6 +24,7 @@ import com.example.neostoreapplication.Model.Responses.GetCartItemResponse
 import com.example.neostoreapplication.R
 import com.example.neostoreapplication.ViewModel.MyCartViewModel
 import com.example.neostoreapplication.utils.SessionManager
+import com.example.neostoreapplication.utils.Validation
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_my_cart.*
@@ -52,7 +54,13 @@ class MyCartActivity : AppCompatActivity(){
 
         val myCartViewModelFactory= MyCartViewModel.Factory(this.application)
         myCartViewModel= ViewModelProviders.of(this,myCartViewModelFactory).get(MyCartViewModel::class.java)
-        getMyCartList()
+
+        if (Validation.isNetworkAvailable(this)) {
+            getMyCartList()
+        } else {
+            Toast.makeText(this, "Please Check Internet connection", Toast.LENGTH_SHORT).show()
+        }
+
         val recyclerViewLayOutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL,false)
         myCartRecyclerView.layoutManager=recyclerViewLayOutManager
         myCartRecyclerView.itemAnimator
@@ -171,6 +179,8 @@ class MyCartActivity : AppCompatActivity(){
         fun getMyCartList()
         {
 
+            if (Validation.isNetworkAvailable(this)) {
+
             myCartViewModel.getCartList(SessionManager(this).getToken())
             myCartViewModel.getMyCartResponse().observe(this,object : Observer<GetCartItemResponse> {
                 override fun onChanged(t: GetCartItemResponse?) {
@@ -184,6 +194,9 @@ class MyCartActivity : AppCompatActivity(){
                 }
             })
 
+            } else {
+                Toast.makeText(this, "Please Check Internet connection", Toast.LENGTH_SHORT).show()
+            }
         }
 
 
@@ -210,23 +223,32 @@ class MyCartActivity : AppCompatActivity(){
 
         fun deleteProduct(productId: String)
         {
-            myCartViewModel.deleteProduct(SessionManager(this).getToken(),productId)
-            myCartViewModel.deleteProductResponse().observe(this,object : Observer<AddToCartResponse> {
-                override fun onChanged(t: AddToCartResponse?) {
-                    if (t?.status==200)
-                    {
-                        getMyCartList()
-                        myCartAdapter?.notifyDataSetChanged()
 
+            if (Validation.isNetworkAvailable(this)) {
+
+                myCartViewModel.deleteProduct(SessionManager(this).getToken(),productId)
+                myCartViewModel.deleteProductResponse().observe(this,object : Observer<AddToCartResponse> {
+                    override fun onChanged(t: AddToCartResponse?) {
+                        if (t?.status==200)
+                        {
+                            getMyCartList()
+                            myCartAdapter?.notifyDataSetChanged()
+
+                        }
                     }
-                }
-            })
+                })
+
+            } else {
+                Toast.makeText(this, "Please Check Internet connection", Toast.LENGTH_SHORT).show()
+            }
 
         }
 
 
         fun editProduct(productId: String,quantity:String,dialog: Dialog)
         {
+            if(Validation.isNetworkAvailable(this)){
+
             myCartViewModel.editQuantity(SessionManager(this).getToken(),productId,quantity)
             myCartViewModel.editQuantityResponse().observe(this,object : Observer<AddToCartResponse> {
                 override fun onChanged(t: AddToCartResponse?) {
@@ -239,6 +261,10 @@ class MyCartActivity : AppCompatActivity(){
                     }
                 }
             })
+
+            } else {
+                     Toast.makeText(this, "Please Check Internet connection", Toast.LENGTH_SHORT).show()
+            }
 
         }
 

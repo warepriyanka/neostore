@@ -12,6 +12,7 @@ import com.example.neostoreapplication.Model.Responses.registerUser
 import com.example.neostoreapplication.R
 import com.example.neostoreapplication.ViewModel.SignUpViewModel
 import com.example.neostoreapplication.utils.SessionManager
+import com.example.neostoreapplication.utils.Validation
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class SignUpActivity: AppCompatActivity() {
@@ -41,7 +42,13 @@ class SignUpActivity: AppCompatActivity() {
         val clicked = findViewById<Button>(R.id.clicked)
 
         clicked.setOnClickListener {
-            registerUser()
+
+            if (Validation.isNetworkAvailable(this)) {
+                registerUser()
+            } else {
+                Toast.makeText(this, "Please Check Internet connection", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
     }
